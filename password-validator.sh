@@ -1,5 +1,25 @@
 #! /bin/bash
 #set -ex
+while [ true ]; do
+	if [ "$1" = "-f" ]; then
+	   shift 1
+	   filename=$1
+           #echo $filename
+	   break
+	else
+	    echo "File path not provided"
+	    exit 1
+	fi
+done
+
+if [ ! -f "$filename" ]; then 
+	echo "Invalid file name provided."
+	exit 1
+fi
+
+
+password=$(<$filename)
+#echo $password
 invalidSize=false
 digitAbsent=false
 smallcaseAbsent=false
@@ -8,19 +28,19 @@ validPassword=true
 RED='\033[31m'
 GREEN='\033[32m'
 RESET='\033[m'
-if [ "${#1}" -lt 10 ];  then
+if [ "${#password}" -lt 10 ];  then
 	invalidSize=true
 	validPassword=false
 fi
-if [[ $1 =~ ^[^0-9]+$ ]]; then
+if [[ $password =~ ^[^0-9]+$ ]]; then
 	digitAbsent=true
 	validPassword=false
 fi
-if [[ $1 =~ ^[^a-z]+$ ]] ; then
+if [[ $password =~ ^[^a-z]+$ ]] ; then
 	smallcaseAbsent=true
 	validPassword=false
 fi
-if [[ $1 =~ ^[^A-Z]+$ ]] ; then
+if [[ $password =~ ^[^A-Z]+$ ]] ; then
 	uppercaseAbsent=true
 	validPassword=false
 fi
