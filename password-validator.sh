@@ -12,7 +12,7 @@ while [ true ]; do
 	fi
 done
 
-if [ ! -f "$filename" ]; then 
+if [ ! -f "$filename" ]; then
 	echo "Invalid file name provided."
 	exit 1
 fi
@@ -45,21 +45,24 @@ if [[ $password =~ ^[^A-Z]+$ ]] ; then
 	validPassword=false
 fi
 
-if [ "$invalidSize" = true ]; then
-	echo -e "${RED}Password size is less than 10${RESET}"
-fi
-if [ "$digitAbsent" = true ] ; then
-	echo -e "${RED}Password does not contain any digit!!${RESET}"
-fi
-if [ "$smallcaseAbsent" = true ]; then
-	echo -e "${RED}Password does not contain any small case character!!${RESET}"
-fi
-if [ "$uppercaseAbsent" = true ]; then
-	echo -e "${RED}Password does not contain any upper case character!!${RESET}"
-fi
-if [ "$validPassword" = true ]; then
-	echo -e "${GREEN}Valid Password!!${RESET}"
-	exit 0
-else
-	exit 1
-fi	
+printResults(){
+	if [ "$1" = true ]; then
+		echo -e "${RED}Password size is less than 10${RESET}"
+	fi
+	if [ "$2" = true ] ; then
+		echo -e "${RED}Password does not contain any digit!!${RESET}"
+	fi
+	if [ "$3" = true ]; then
+		echo -e "${RED}Password does not contain any small case character!!${RESET}"
+	fi
+	if [ "$4" = true ]; then
+		echo -e "${RED}Password does not contain any upper case character!!${RESET}"
+	fi
+	if [ "$5" = true ]; then
+		echo -e "${GREEN}Valid Password!!${RESET}"
+		exit 0
+	else
+		exit 1
+	fi
+}
+printResults $invalidSize $digitAbsent $smallcaseAbsent $uppercaseAbsent $validPassword
