@@ -39,4 +39,7 @@ if [ "$uppercaseAbsent" = true ]; then
 fi
 if [ "$validPassword" = true ]; then
 	echo -e "${GREEN}Valid Password!!${RESET}"
+	exit 0
+else
+	exit 1
 fi	
